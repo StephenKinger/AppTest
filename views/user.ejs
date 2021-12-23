@@ -1,0 +1,32 @@
+<%- include("_header") -%>
+
+<h1>User (<%= user.name %>)</h1>
+
+<div class="table-responsive-sm">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>isDeleted</th>
+        <th>UserName</th>
+        <th>Country</th>
+        <th>Name</th>
+        <th>City</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><%= user.isDeleted %></td>
+          <td><%= user.username %></td>
+          <td><%= user.country %></td>
+          <td><%= user.name %></td>
+          <td><%= user.city %></td>
+        </tr>
+    </tbody>
+  </table>
+  <img src="<%= media.url %>">
+  <% for (const message of messages) { %>
+      <p><%= message.content %></p>
+  <% } %>
+</div>
+
+<%- include("_footer") -%>

@@ -1,0 +1,89 @@
+<%- include("_header") -%>
+
+<h1>Recherche</h1>
+
+<div class="table-responsive-sm">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>isDeleted</th>
+        <th>UserName</th>
+        <th>Country</th>
+        <th>Name</th>
+        <th>City</th>
+      </tr>
+    </thead>
+    <form action="/users" method="GET">
+    <tbody>
+        <tr>
+          <td>    <select class="form-control" id="exampleFormControlSelect1" name="isdeleted">
+          <option></option>
+          <option>true</option>
+          <option>false</option>
+        </td>
+          <td><input type="text" class="form-control" id="UserNameSearch" name="username" placeholder=""></td>
+          <td><input type="text" class="form-control" id="CountrySearch" name="country" placeholder=""></td>
+          <td><input type="text" class="form-control" id="NameSearch" name="name" placeholder=""></td>
+          <td><input type="text" class="form-control" id="CitySearch" name="city" placeholder=""></td>
+          <td class="d-print-none">
+            <button class="btn btn-sm btn-success" type="submit" id="submit">Find</button>
+          </td>
+        </tr>
+    </tbody>
+    </form>
+  </table>
+  <h1>Liste des Utilisateurs (<%= model.length %>)</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>isDeleted</th>
+        <th>UserName</th>
+        <th>Country</th>
+        <th>Name</th>
+        <th>City</th>
+        <th class="d-print-none">
+          <a class="btn btn-sm btn-success" href="/create">Ajouter</a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (const user of model) { %>
+        <tr>
+          <td><%= user.isDeleted %></td>
+          <td><%= user.username %></td>
+          <td><%= user.country %></td>
+          <td><%= user.name %></td>
+          <td><%= user.city %></td>
+          <td class="d-print-none">
+            <a class="btn btn-sm btn-warning" href="/user/<%= user.id %>">Show</a>
+            <a class="btn btn-sm btn-danger" href="/activate/<%= user.id %>">Activate</a>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="btn btn-sm" href="#">Previous</a></li>
+    <li class="page-item"><a class="btn btn-sm" href="javascript:updateQueryStringParameter(window.location.toString(), 'page', <%= parseInt(currentPage)-1 %>)"><%= parseInt(currentPage)-1 %></a></li>
+    <li class="page-item"><a class="btn btn-sm" href="#"><%= currentPage %></a></li>
+    <li class="page-item"><a class="btn btn-sm" href="javascript:updateQueryStringParameter(window.location.toString(), 'page', <%= parseInt(currentPage)+1 %>)"><%= parseInt(currentPage)+1 %></a></li>
+    <li class="page-item"><a class="btn btn-sm" href="#">Next</a></li>
+  </ul>
+  </nav>
+</div>
+
+<script>
+  function updateQueryStringParameter(uri, key, value) {
+  var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+  var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+  if (uri.match(re)) {
+    window.location = uri.replace(re, '$1' + key + "=" + value + '$2');
+  }
+  else {
+    window.location = uri + separator + key + "=" + value;
+  }
+}
+</script>
+
+<%- include("_footer") -%>
